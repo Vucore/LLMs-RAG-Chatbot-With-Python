@@ -18,4 +18,4 @@ class ChatbotBase:
         
     def generate_agent_response(self, user_input: str, chat_history: list = None, session_id="default_user") -> str:
         """Generate response using the Llama3 agent"""
-        return self.agent.run_agent(user_input, chat_history)
+        return self.agent.run_agent(user_input, chat_history);

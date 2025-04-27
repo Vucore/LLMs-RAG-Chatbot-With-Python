@@ -12,10 +12,6 @@ logging.basicConfig(level=logging.INFO)
 class FileNamesRequest(BaseModel):
     original_names: List[str]
 
-# class ChatRequest(BaseModel):
-#     message: str
-#     rag: bool
-#     chat_history: list = None
 
 class AgentRequest(BaseModel):
     message: str
@@ -38,4 +34,4 @@ async def process_documents(request: FileNamesRequest):
 async def run_agent(request: AgentRequest):
     user_input = request.message
     chat_history = request.chat_history
-    return services.run_agent(user_input, chat_history)
+    return services.run_agent_rag(user_input, chat_history)

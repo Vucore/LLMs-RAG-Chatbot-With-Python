@@ -4,9 +4,9 @@ from langchain.schema import Document
 
 class TextSplitter():
     def __init__(self, 
-                 separators: List[str] = ["\n\n", "\n", " ", ""],
-                 chunk_size: int = 400,
-                 chunk_overlap: int = 50
+                 separators: List[str] = ["." ,"\n\n", "\n", " ", ""],
+                 chunk_size: int = 500,
+                 chunk_overlap: int = 0
                  ) -> None:
         self.splitter = RecursiveCharacterTextSplitter(
             separators=separators,

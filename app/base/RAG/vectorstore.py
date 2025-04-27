@@ -1,5 +1,4 @@
-from langchain_community.vectorstores import FAISS
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 import hashlib
 
 class VectorDB:

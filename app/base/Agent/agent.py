@@ -27,9 +27,7 @@ class Agent():
                                     embedding=self.embedding,
                                     )
         self.vectorstore = self.vectorstore_class.get_vectorstore()
-        self.vectorstore_class.add_documents_to_vectorstore(docs)
         self.retriever = self.retriever_class.build_retriever(docs, 4)
-
         return "Documents processed successfully"
 
     def get_ensemble_retriever(self):
