@@ -90,7 +90,6 @@ def handle_file_upload():
                 st.error(f"Lỗi upload: {response.text}")
             
             st.session_state.file_uploaded = True
-            # st.session_state["uploader_key"] = str(uuid.uuid4())
             st.rerun()
     
     if uploaded_file is None:
@@ -107,12 +106,6 @@ def handle_file_upload():
                 value=file_info['selected'],
             )
             st.session_state.uploaded_files[index]['selected'] = is_selected
-        
-        if st.button("Xóa tất cả tài liệu"):
-            # TODO: Gửi API delete file ở backend nếu cần
-            st.session_state.uploaded_files = []
-            st.success("Đã xóa tất cả tài liệu đã tải")
-            st.rerun()
 
         st.markdown("</div>", unsafe_allow_html=True)
     
@@ -131,21 +124,19 @@ def handle_file_upload():
         except Exception as e:
             st.error(f"Lỗi khi kết nối server: {str(e)}")
 
-def handle_user_input(msgs, use_rag):
+def handle_user_input(msgs):
     if prompt := st.chat_input("Hãy hỏi tôi bất cứ điều gì!"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.chat_message("human").write(prompt)
         msgs.add_user_message(prompt)
 
         with st.chat_message("assistant"):
-            st_callback = StreamlitCallbackHandler(st.container())
             chat_history = [
                 {"role": msg["role"], "content": msg["content"]}
                 for msg in st.session_state.messages[:-1]
             ]
             response = requests.post(RUN_AGENT_API_URL, json={"message": prompt, "chat_history": chat_history})
             response_agent = response.json()
-            
             output = response_agent["output"]
             st.session_state.messages.append({"role": "assistant", "content": output})
             msgs.add_ai_message(output)
@@ -155,7 +146,6 @@ def handle_user_input(msgs, use_rag):
 # Sidebar
 with st.sidebar:
     st.header("Cài đặt")
-    use_rag = st.checkbox("Sử dụng RAG (Retrieval Augmented Generation)", value=True)
     
     # Thêm phần tải file và hiển thị danh sách file trong sidebar
     st.markdown("---")
@@ -163,24 +153,17 @@ with st.sidebar:
     handle_file_upload()
     
     st.markdown("---")
-    if st.button("Xóa lịch sử chat"):
-        # Giữ lại danh sách file khi xóa lịch sử chat
-        uploaded_files = st.session_state.get("uploaded_files", [])
-        st.session_state.clear()
-        st.session_state.uploaded_files = uploaded_files
-        st.rerun()
         
     st.markdown("### Hướng dẫn")
     st.info("""
-    Chatbot này cung cấp và trả lời theo thông tin:
+    Chatbot này xây dựng bởi LangChain và Llama3:
     - Tải các tài liệu PDF (đã được làm sạch) lên để truy vấn
-    - Bỏ chọn RAG để ChatBot trả lời dựa trên các kiến thức đã học
     """)
 
 
 def main():
     msgs = setup_chat_interface()
-    handle_user_input(msgs, use_rag)
+    handle_user_input(msgs)
 
 
 if __name__ == "__main__":
