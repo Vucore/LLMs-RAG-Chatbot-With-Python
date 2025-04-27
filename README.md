@@ -13,9 +13,9 @@
 
 1. Đảm bảo bạn đã cài đặt Python 3.8+ và pip
 
-2. Cài đặt các gói phụ thuộc:
+2. Cài đặt các gói phụ thuộc (Có uv cài đặt nhanh hơn pip):
 ```bash
-pip install streamlit langchain langchain-community 
+uv pip install -r requirements.txt  
 ```
 
 3. Cài đặt Ollama (cho mô hình Llama3) theo hướng dẫn tại [Ollama.ai](https://ollama.ai/download)
@@ -27,7 +27,7 @@ pip install streamlit langchain langchain-community
 Chạy server:
 
 ```bash
-uvicorn chatbot_RAG.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 Khởi động Client Streamlit:
