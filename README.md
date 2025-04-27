@@ -8,6 +8,8 @@
 - 🔍 Tìm kiếm thông tin 
 - 📊 Quản lý file PDF đã upload
 - 📚 Sử dụng RAG (Retrieval Augmented Generation) để cải thiện chất lượng câu trả lời
+- 🔄 Sử dụng Chroma làm vector database để lưu trữ và truy xuất tri thức
+- 🇻🇳 Tích hợp mô hình `bkai-foundation-models/vietnamese-bi-encoder` từ Hugging Face cho embedding tiếng Việt
 
 ## Cài đặt
 
@@ -51,15 +53,22 @@ chatbot_module/
 ├── base/                  # Mô-đun cơ sở của chatbot
 │   ├── Agent/             # Agent thông minh xử lý truy vấn
 │   ├── RAG/               # Hệ thống truy xuất và tăng cường thông tin
-│   ├── ML/                # Các mô hình học máy 
-│   ├── Utils/             # Các tiện ích hỗ trợ
-│   └── data/              # Dữ liệu và tài liệu tham khảo
-├── models/                # Các mô hình ngôn ngữ lớn
-├── routes/                # API routes cho ứng dụng backend
+│   ├── ML/                # Chứa mô hình embedding
+│   └── ...                #
+│               
+├── api/                   # API routes cho ứng dụng backend
 ├── services/              # Dịch vụ xử lý logic
-├── streamlit_app.py       # Ứng dụng Streamlit
-└── run_streamlit.py       # Script chạy ứng dụng
+└── streamlit_app.py       # Ứng dụng Streamlit
 ```
+
+## Công nghệ sử dụng
+
+- **Mô hình ngôn ngữ**: Llama3 thông qua Ollama
+- **Vector Database**: Chroma để lưu trữ và truy xuất hiệu quả các embedding
+- **Embedding Model**: `bkai-foundation-models/vietnamese-bi-encoder` từ Hugging Face cho embedding tiếng Việt
+- **Framework**: LangChain cho xử lý chuỗi prompt và RAG
+- **Frontend**: Streamlit cho giao diện người dùng thân thiện
+- **Backend**: FastAPI
 
 ## Phát triển
 
