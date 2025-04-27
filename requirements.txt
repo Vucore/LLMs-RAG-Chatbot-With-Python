@@ -1,8 +1,10 @@
 fastapi
 numpy
 pypdf
+python-multipart
 faiss-cpu
 rank_bm25
+chromadb
 websockets
 scikit-learn
 underthesea
